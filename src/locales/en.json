@@ -1,0 +1,14 @@
+{
+  "appTitle": "Horse Racing",
+  "notFound": {
+    "title": "Not Found"
+  },
+  "race": {
+    "pageTitle": "Race",
+    "button": {
+      "generate": "Generate",
+      "start": "Start",
+      "pause": "Pause"
+    }
+  }
+}
