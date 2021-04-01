@@ -9,14 +9,26 @@
       <v-flex xs12 pt-4>
         <h1 class="headline">{{ $t('race.pageTitle') }}</h1>
       </v-flex>
+      <v-flex xs12 sm12 md3>
+        <horses-list></horses-list>
+      </v-flex>
+      <v-flex xs12 sm12 md5>
+        Test 2
+      </v-flex>
+      <v-flex xs12 sm12 md4>
+        Test 3
+      </v-flex>
     </v-layout>
   </v-layout>
 </template>
 
 <script>
+import HorsesList from '@/components/race/HorsesList.vue';
+
 export default {
   name: 'RacePage',
   components: {
+    HorsesList,
   },
 };
 </script>

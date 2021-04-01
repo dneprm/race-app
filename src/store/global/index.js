@@ -1,10 +1,14 @@
 const initialState = {
+  loader: false,
 };
 
 const getters = {
 };
 
 const mutations = {
+  setLoader(state, payload) {
+    state.loader = payload;
+  },
 };
 
 const actions = {

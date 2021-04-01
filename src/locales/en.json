@@ -9,6 +9,20 @@
       "generate": "Generate",
       "start": "Start",
       "pause": "Pause"
+    },
+    "horsesList": {
+      "title": "Horse list",
+      "tableHeaders": {
+        "name": "Name",
+        "condition": "Condition",
+        "color": "Color"
+      }
+    }
+  },
+  "common": {
+    "table": {
+      "dataIsLoading": "Data is loading ...",
+      "noData": "No data yet"
     }
   }
 }
