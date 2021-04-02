@@ -2,7 +2,6 @@
   <v-layout
     align-center
     justify-center
-    class="container"
     :class="{ 'pt-2': $vuetify.breakpoint.smAndUp }"
   >
     <v-layout wrap class="mb-1" :class="{ 'pt-4': $vuetify.breakpoint.smAndUp }">

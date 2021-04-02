@@ -17,6 +17,8 @@
         <v-btn
           class="ml-5 justify-end"
           color="info"
+          :disabled="isLoading"
+          @click="clickGenerateRaceProgram"
         >
           <span v-if="$vuetify.breakpoint.smAndUp">{{ $t('race.button.generate') }}</span>
           <v-icon :class='{ "ml-1": $vuetify.breakpoint.smAndUp }'>mdi-creation</v-icon>
@@ -24,6 +26,7 @@
         <v-btn
           class="ml-5 justify-end"
           color="info"
+          :disabled="isLoading || !isRaceProgramGenerated"
         >
           <span v-if="$vuetify.breakpoint.smAndUp">{{ $t('race.button.start') }} / {{ $t('race.button.pause') }}</span>
           <v-icon :class='{ "ml-1": $vuetify.breakpoint.smAndUp }'>mdi-play-pause</v-icon>
@@ -34,10 +37,25 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   data: () => ({
   }),
+  computed: {
+    ...mapState({
+      isLoading: (state) => state.global.loader,
+      isRaceProgramGenerated: (state) => state.race.isRaceProgramGenerated,
+    }),
+  },
+  methods: {
+    ...mapMutations({
+      generateRaceLapsProgram: 'race/generateRaceLapsProgram',
+    }),
+    clickGenerateRaceProgram() {
+      this.generateRaceLapsProgram();
+    },
+  },
 };
 </script>
 

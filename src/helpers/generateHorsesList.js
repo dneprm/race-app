@@ -6,17 +6,17 @@
  */
 export const generateHorsesList = function (horsesList, listLength) {
   let newHorsesList = [];
-  let indexesList = [];
-  while (indexesList.length < listLength) {
-    let index = Math.floor((Math.random()* horsesList.length) + 1);
-    if (indexesList.includes(index)) {
+  let idsList = [];
+  while (idsList.length < listLength) {
+    let index = Math.floor(Math.random()* horsesList.length);
+    if (idsList.includes(horsesList[index].id)) {
       continue;
     }
-    indexesList.push(index);
+    idsList.push(horsesList[index].id);
   }
 
   horsesList.map((item) => {
-    if (indexesList.includes(item.id )) {
+    if (idsList.includes(item.id )) {
       newHorsesList.push(item);
     }
   });

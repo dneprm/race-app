@@ -17,6 +17,19 @@
         "condition": "Condition",
         "color": "Color"
       }
+    },
+    "lapsList": {
+      "lap": "Lap",
+      "program": {
+        "title": "Program"
+      },
+      "result": {
+        "title": "Result"
+      },
+      "tableHeaders": {
+        "position": "Position",
+        "name": "Name"
+      }
     }
   },
   "common": {

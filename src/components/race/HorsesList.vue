@@ -33,8 +33,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex';
-import { generateHorsesList } from '@/helpers/generateHorsesList';
+import { mapState } from 'vuex';
 
 export default {
   name: 'HorsesList',
@@ -54,29 +53,6 @@ export default {
       horsesList: (state) => state.race.horsesList,
       isLoading: (state) => state.global.loader,
     }),
-  },
-  async created() {
-    await this.generateHorsesListForRace();
-  },
-  destroyed() {
-    this.setLoader(false);
-    this.setHorsesList([]);
-  },
-  methods: {
-    ...mapActions({
-      fetchHorsesData: 'race/fetchHorsesData',
-    }),
-    ...mapMutations({
-      setLoader: 'global/setLoader',
-      setHorsesList: 'race/setHorsesList',
-    }),
-    async generateHorsesListForRace() {
-      this.setLoader(true);
-      const initialHorsesList = await this.fetchHorsesData();
-      const horsesList = generateHorsesList(initialHorsesList, 20);
-      this.setHorsesList(horsesList);
-      this.setLoader(false);
-    },
   },
 };
 </script>

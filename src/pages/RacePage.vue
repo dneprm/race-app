@@ -2,7 +2,6 @@
   <v-layout
     align-center
     justify-center
-    class="container"
     :class="{ 'pt-2': $vuetify.breakpoint.smAndUp }"
   >
     <v-layout wrap class="mb-1" :class="{ 'pt-4': $vuetify.breakpoint.smAndUp }">
@@ -12,11 +11,11 @@
       <v-flex xs12 sm12 md3>
         <horses-list></horses-list>
       </v-flex>
-      <v-flex xs12 sm12 md5>
+      <v-flex :class="{ 'pr-4 pl-4': $vuetify.breakpoint.mdAndUp }" xs12 sm12 md5>
         Test 2
       </v-flex>
       <v-flex xs12 sm12 md4>
-        Test 3
+        <laps-list></laps-list>
       </v-flex>
     </v-layout>
   </v-layout>
@@ -24,11 +23,13 @@
 
 <script>
 import HorsesList from '@/components/race/HorsesList.vue';
+import LapsList from '@/components/race/LapsList.vue';
 
 export default {
   name: 'RacePage',
   components: {
     HorsesList,
+    LapsList
   },
 };
 </script>
