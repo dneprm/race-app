@@ -30,6 +30,14 @@
         "position": "Position",
         "name": "Name"
       }
+    },
+    "raceLap": {
+      "finish": "Finish",
+      "isFinished": "This Race has finished",
+      "isRunning": "is running ...",
+      "isPaused": "is paused",
+      "pauseBetweenLaps": "Getting ready for next lap...",
+      "generateProgram": "Please generate a new program to start a new race"
     }
   },
   "common": {

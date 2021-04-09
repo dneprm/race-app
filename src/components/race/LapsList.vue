@@ -27,7 +27,7 @@
           >
             <template slot="item" slot-scope="{ item }">
               <tr>
-                <td class="text-xs-left">{{ item.position }}</td>
+                <td class="text-center">{{ item.position }}</td>
                 <td class="text-xs-left">{{ item.name }}</td>
               </tr>
             </template>
@@ -40,7 +40,7 @@
            <v-data-table
             :items="lap.result"
             :headers="headers"
-            :loading="isLoading"
+            :loading="isLoading || (currentRaceLapIndex !== null && currentRaceLapIndex === index && raceLaps[currentRaceLapIndex].isInProgress)"
             :loading-text="$t('common.table.dataIsLoading')"
             :mobile-breakpoint="100"
             class="table-custom lapList small mb-4"
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'LapsList',
@@ -81,6 +81,9 @@ export default {
     ...mapState({
       raceLaps: (state) => state.race.raceLaps,
       isLoading: (state) => state.global.loader,
+    }),
+    ...mapGetters({
+      currentRaceLapIndex: 'race/getCurrentRaceLapIndex',
     }),
   },
 };

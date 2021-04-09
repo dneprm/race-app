@@ -1,4 +1,6 @@
+import 'vue-svgicon/dist/polyfill';
 import Vue from 'vue';
+import VueSVGIcon from 'vue-svgicon';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -6,6 +8,8 @@ import vuetify from './plugins/vuetify';
 import { i18n } from './plugins/i18n';
 
 Vue.config.productionTip = false;
+
+Vue.use(VueSVGIcon);
 
 new Vue({
   router,

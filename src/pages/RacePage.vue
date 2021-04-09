@@ -12,7 +12,7 @@
         <horses-list></horses-list>
       </v-flex>
       <v-flex :class="{ 'pr-4 pl-4': $vuetify.breakpoint.mdAndUp }" xs12 sm12 md5>
-        Test 2
+        <race-lap></race-lap>
       </v-flex>
       <v-flex xs12 sm12 md4>
         <laps-list></laps-list>
@@ -24,12 +24,14 @@
 <script>
 import HorsesList from '@/components/race/HorsesList.vue';
 import LapsList from '@/components/race/LapsList.vue';
+import RaceLap from '@/components/race/RaceLap.vue';
 
 export default {
   name: 'RacePage',
   components: {
     HorsesList,
-    LapsList
+    LapsList,
+    RaceLap,
   },
 };
 </script>

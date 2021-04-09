@@ -34,7 +34,7 @@ export default {
     }),
     async generateHorsesListForRace() {
       const initialHorsesList = await this.fetchHorsesData();
-      const horsesList = generateHorsesList(initialHorsesList, 20);
+      const horsesList = generateHorsesList(initialHorsesList, process.env.VUE_APP_HORSES_LIST_COUNT);
       this.setHorsesList(horsesList);
     },
   },

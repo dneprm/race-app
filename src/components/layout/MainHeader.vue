@@ -17,7 +17,7 @@
         <v-btn
           class="ml-5 justify-end"
           color="info"
-          :disabled="isLoading"
+          :disabled="isLoading || isRaceProgramGenerated"
           @click="clickGenerateRaceProgram"
         >
           <span v-if="$vuetify.breakpoint.smAndUp">{{ $t('race.button.generate') }}</span>
@@ -26,7 +26,8 @@
         <v-btn
           class="ml-5 justify-end"
           color="info"
-          :disabled="isLoading || !isRaceProgramGenerated"
+          :disabled="isLoading || !isRaceProgramGenerated || raceFinished || isPauseBetweenLapsActive"
+          @click="clickStartPauseRaceLaps"
         >
           <span v-if="$vuetify.breakpoint.smAndUp">{{ $t('race.button.start') }} / {{ $t('race.button.pause') }}</span>
           <v-icon :class='{ "ml-1": $vuetify.breakpoint.smAndUp }'>mdi-play-pause</v-icon>
@@ -37,7 +38,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex';
 
 export default {
   data: () => ({
@@ -46,14 +47,64 @@ export default {
     ...mapState({
       isLoading: (state) => state.global.loader,
       isRaceProgramGenerated: (state) => state.race.isRaceProgramGenerated,
+      raceLaps: (state) => state.race.raceLaps,
+      raceFinished: (state) => state.race.raceFinished,
+      isPauseBetweenLapsActive: (state) => state.race.isPauseBetweenLapsActive,
     }),
+    ...mapGetters({
+      currentRaceLapIndex: 'race/getCurrentRaceLapIndex',
+    }),
+  },
+  destroyed() {
+    this.clearLapRaceProgramIntervals(this.currentRaceLapIndex);
   },
   methods: {
     ...mapMutations({
       generateRaceLapsProgram: 'race/generateRaceLapsProgram',
+      setIsCurrentRaceLapState: 'race/setIsCurrentRaceLapState',
+      setRaceLapPropertyState: 'race/setRaceLapPropertyState',
+      clearLapRaceProgramIntervals: 'race/clearLapRaceProgramIntervals',
+      initRaceLaps: 'race/initRaceLaps',
+      setRaceFinished: 'race/setRaceFinished',
+    }),
+    ...mapActions({
+      increaseLapRaceProgramProgress: 'race/increaseLapRaceProgramProgress',
     }),
     clickGenerateRaceProgram() {
+      if (this.raceFinished) {
+        this.initRaceLaps();
+        this.setRaceFinished(false);
+      }
       this.generateRaceLapsProgram();
+    },
+    clickStartPauseRaceLaps() {
+      if (this.currentRaceLapIndex === null) {
+        // set isCurrent to true for 0 index
+        this.setRaceLapPropertyState({ index: 0, property: 'isCurrent', state: true });
+      }
+
+      if (!this.raceLaps[this.currentRaceLapIndex].isInProgress) {
+        // start
+        this.startLapRace(this.currentRaceLapIndex);
+        return;
+      }
+
+      if (this.raceLaps[this.currentRaceLapIndex].isInProgress) {
+        // pause
+        this.pauseLapRace();
+      }
+    },
+    startLapRace(lapIndex) {
+      // set isInProgress to true for lapIndex
+      this.setRaceLapPropertyState({ index: lapIndex, property: 'isInProgress', state: true });
+      // set intervals for increase horses progress for lapIndex lap
+      this.increaseLapRaceProgramProgress(lapIndex);
+    },
+    pauseLapRace() {
+      // set isInProgress to false for currentRaceLapIndex
+      this.setRaceLapPropertyState({ index: this.currentRaceLapIndex, property: 'isInProgress', state: false });
+      // clear intervals for current lap programs
+      this.clearLapRaceProgramIntervals(this.currentRaceLapIndex);
     },
   },
 };
